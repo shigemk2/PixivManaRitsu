@@ -43,7 +43,7 @@ class PixivViewController < UITableViewController
     label = UILabel.alloc.init
     label.frame = CGRectMake(40, 20, 200, 30)
     label.font = UIFont.fontWithName("AppleGothic",size:14)
-    # title
+    # user
     label.text = @items[indexPath.row][5]
     label.textAlignment = UITextAlignmentLeft
     cell.addSubview(label)
