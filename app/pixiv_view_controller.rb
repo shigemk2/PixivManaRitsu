@@ -4,14 +4,19 @@ class PixivViewController < UITableViewController
     super
 
     @feed = nil
+    @items = []
     self.navigationItem.title = "Pixiv ManaRitsu Reader"
     self.view.backgroundColor = UIColor.whiteColor
 
-    url = "https://qiita.com/api/v1/tags/RubyMotion/items"
+    url = "http://spapi.pixiv.net/iphone/search.php?s_mode=s_tag&word=%E3%83%9E%E3%83%8A%E3%82%8A%E3%81%A4&PHPSESSID=0"
 
     BW::HTTP.get(url) do |response|
       if response.ok?
-        @feed = BW::JSON.parse(response.body.to_str)
+        @feed = response.body.to_str
+        lines = @feed.split("\n")
+        for row in lines
+          @items << row.split(",")
+        end
         view.reloadData
       else
         App.alert(response.error_message)
@@ -20,10 +25,10 @@ class PixivViewController < UITableViewController
   end
 
   def tableView(tableView, numberOfRowsInSection:section)
-    if @feed.nil?
+    if @items.nil?
       return 0
     else
-      @feed.size
+      @items.size
     end
   end
 
@@ -38,14 +43,13 @@ class PixivViewController < UITableViewController
     label = UILabel.alloc.init
     label.frame = CGRectMake(40, 20, 200, 30)
     label.font = UIFont.fontWithName("AppleGothic",size:14)
-    label.text = @feed[indexPath.row]["title"]
+    # title
+    label.text = @items[indexPath.row][5]
     label.textAlignment = UITextAlignmentLeft
     cell.addSubview(label)
 
-
-
-    image_path = @feed[indexPath.row]["user"]["profile_image_url"]
-
+    # thumbnail
+    image_path = @items[indexPath.row][6].gsub(/\"/, "")
     image_src = NSData.dataWithContentsOfURL(NSURL.URLWithString(image_path))
     image = UIImage.imageWithData(image_src)
 
@@ -54,9 +58,10 @@ class PixivViewController < UITableViewController
     cell.addSubview(image_view)
     return cell
   end
+
   def tableView(tableView, didSelectRowAtIndexPath:indexPath)
     WebViewController.new.tap do |c|
-      c.item = @feed[indexPath.row]
+      c.item = @items[indexPath.row]
       self.navigationController.pushViewController(c, animated:true)
     end
   end
