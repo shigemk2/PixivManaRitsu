@@ -2,6 +2,7 @@
 $:.unshift("/Library/RubyMotion/lib")
 require 'motion/project/template/ios'
 require 'bundler'
+require 'csv'
 
 is_test = ARGV.join(' ') =~ /spec/
 if is_test
