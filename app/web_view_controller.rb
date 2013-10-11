@@ -13,16 +13,14 @@ class WebViewController < UIViewController
       v.scalesPageToFit = true
       url = self.item[9].gsub(/\"/, "") # image
       image_src = NSData.dataWithContentsOfURL(NSURL.URLWithString(url))
-      image = UIImage.imageWithData(image_src)
 
+      image = UIImage.imageWithData(image_src)
       image_view = UIImageView.alloc.initWithImage(image)
-      image_view.frame = CGRectMake(0, 100, 320, 320)
+      image_view.frame = CGRectMake(0, 0, image.size.width, image.size.height)
       scrollwindow.addSubview(image_view)
       scrollwindow.contentSize = image_view.size
       v.delegate = self
       view.addSubview(scrollwindow)
-
-      # v.loadHTMLString(self.item["body"], baseURL:nil)
     end
   end
 end
