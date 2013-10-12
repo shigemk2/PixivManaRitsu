@@ -15,6 +15,6 @@ from https://github.com/shigemk2/RMQiita
 
 [Icon Illust Link](http://www.pixiv.net/member_illust.php?mode=medium&illust_id=35029629)
 
-![Icon Illust Link](http://i1.pixiv.net/img55/img/pluvieux_tigre/35029629_m.jpg)
+![Icon Illust Link](resources/35029629_m.jpg)
 
 All ManaRitsu Artists!
