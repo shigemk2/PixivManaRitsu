@@ -16,8 +16,8 @@ class PixivViewController < UITableViewController
         lines = @feed.split("\n")
         for row in lines
           @items << row.split(",")
+          view.reloadData
         end
-        view.reloadData
       else
         App.alert(response.error_message)
       end
