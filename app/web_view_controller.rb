@@ -3,7 +3,7 @@ class WebViewController < UIViewController
 
   def viewDidLoad
     super
-    self.navigationItem.title = self.item[3]
+    self.navigationItem.title = self.item[3].gsub(/\"/, "")
     @webview = UIWebView.new.tap do |v|
       scrollwindow = UIScrollView.alloc.initWithFrame(UIScreen.mainScreen.bounds)
       scrollwindow.scrollEnabled = true
