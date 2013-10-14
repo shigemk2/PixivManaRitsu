@@ -28,7 +28,8 @@ class PixivViewController < UITableViewController
     if @items.nil?
       return 0
     else
-      @items.size
+      # @items.size
+      15
     end
   end
 
@@ -40,13 +41,15 @@ class PixivViewController < UITableViewController
     cell = tableView.dequeueReusableCellWithIdentifier('cell') || UITableViewCell.alloc.initWithStyle(UITableViewCellStyleDefault, reuseIdentifier:'cell')
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator
 
-    label = UILabel.alloc.init
-    label.frame = CGRectMake(40, 20, 200, 30)
-    label.font = UIFont.fontWithName("AppleGothic",size:14)
+    if @items == []
+      return cell
+    end
+
     # user
-    label.text = @items[indexPath.row][5].gsub(/\"/, "")
-    label.textAlignment = UITextAlignmentLeft
-    cell.addSubview(label)
+    cell.textLabel.frame = CGRectMake(200, 200, 20, 30)
+    cell.textLabel.text = @items[indexPath.row][5].gsub(/\"/, "")
+    cell.textLabel.font = UIFont.boldSystemFontOfSize(14)
+    cell.textLabel.textAlignment = UITextAlignmentRight
 
     # thumbnail
     image_path = @items[indexPath.row][6].gsub(/\"/, "")
