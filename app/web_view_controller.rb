@@ -21,6 +21,16 @@ class WebViewController < UIViewController
       scrollwindow.contentSize = image_view.size
       v.delegate = self
       view.addSubview(scrollwindow)
+
+      # pinch
+      pinchGesture = UIPinchGestureRecognizer.alloc.initWithTarget(self, action:'handlePinchGesture:')
+      view.addGestureRecognizer(pinchGesture)
     end
+  end
+
+  # selector
+  def handlePinchGesture(sender)
+    factor = sender.scale
+    view.transform = CGAffineTransformMakeScale(factor, factor)
   end
 end
