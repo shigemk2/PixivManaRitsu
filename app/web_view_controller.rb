@@ -15,10 +15,10 @@ class WebViewController < UIViewController
       image_src = NSData.dataWithContentsOfURL(NSURL.URLWithString(url))
 
       image = UIImage.imageWithData(image_src)
-      image_view = UIImageView.alloc.initWithImage(image)
-      image_view.frame = CGRectMake(0, 0, image.size.width, image.size.height)
-      scrollwindow.addSubview(image_view)
-      scrollwindow.contentSize = image_view.size
+      @image_view = UIImageView.alloc.initWithImage(image)
+      @image_view.frame = CGRectMake(0, 0, image.size.width, image.size.height)
+      scrollwindow.addSubview(@image_view)
+      scrollwindow.contentSize = @image_view.size
       v.delegate = self
       view.addSubview(scrollwindow)
 
@@ -31,6 +31,6 @@ class WebViewController < UIViewController
   # selector
   def handlePinchGesture(sender)
     factor = sender.scale
-    view.transform = CGAffineTransformMakeScale(factor, factor)
+    @image_view.transform = CGAffineTransformMakeScale(factor, factor)
   end
 end
